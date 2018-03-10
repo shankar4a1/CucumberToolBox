@@ -411,7 +411,7 @@
         </dependency>
 
     </dependencies>
-    <reporting>
+    <!--<reporting>
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -419,7 +419,7 @@
                 <version>2.20.1</version>
             </plugin>
         </plugins>
-    </reporting>
+    </reporting>-->
 
 
     <build>

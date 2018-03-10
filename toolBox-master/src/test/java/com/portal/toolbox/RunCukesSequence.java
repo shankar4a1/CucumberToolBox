@@ -30,19 +30,19 @@ import java.io.File;
 //        excludeCoverageTags = {"@flaky" },
 //        includeCoverageTags = {"@passed" },
 //        outputFolder = "target")
-
+@RunWith(Cucumber.class)
 @CucumberOptions(
         plugin = {"pretty", "html:target/cucumber",
                 "junit:target/junit_cucumber.xml",
-                "json:target/cucumber_reports/regression_results/cucumber.json",
-                "com.cucumber.listener.ExtentCucumberFormatter:target/Extentreport.html"},
+                "json:target/cucumber_reports/regression_results/cucumber.json"
+               },
         format = {"html:target/site/cucumber-pretty"},
-        features = "src/test/resources/features",
+        features = "src/test/resources/features/GeneralPartnership.feature",
         tags = {"~@wip", "~@manual"},
         monochrome = true,
 
         snippets = SnippetType.CAMELCASE)
-
+// "com.cucumber.listener.ExtentCucumberFormatter:target/Extentreport.html"
 //        plugin = {"pretty", "html:target/cucumber", "junit:target/junit_cucumber.xml", "json:target/cucumber.json"},
 //        format = {"html:target/site/cucumber-pretty"},
 //        features = "src/test/resources/features",

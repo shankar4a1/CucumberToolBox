@@ -54,6 +54,21 @@ public class toolboxUtil extends AbstractPage {
 
     }
 
+    public void startNewApplicationForPartnership(String personalDetails, String organizationDetail, String businessDetails, String businessfinancials, String teamDetals,String teamDetailsAnotherMember, String manageAccounts) {
+        waitForPageLoad();
+        waitForMoreTime();
+        startNewApplication.startnewapplicationButton().click();//click here for key individual
+        startNewApplication.agreementCheckbox().click();
+        startNewApplication.letStartButton().click();
+        getStarted(personalDetails, organizationDetail);
+        businessContact(businessDetails);
+        businessfinancials(businessfinancials);
+        enterAboutYou(personalDetails, teamDetals);
+        enterAboutYouForAnotherTeamMember(teamDetailsAnotherMember);
+        manageaccountsForPartnership(manageAccounts);
+
+    }
+
     public void getStarted(String personalDetails, String organizationDetail) {
 
         waitForPageLoad();
@@ -176,9 +191,60 @@ public class toolboxUtil extends AbstractPage {
         yourTeamPage.homeAddressSeachButton().click();
         new Select(yourTeamPage.selectMonthMovingIntoAddress()).selectByVisibleText("July");
         new Select(yourTeamPage.selectYearMovingIntoAddress()).selectByVisibleText("2014");
+        yourTeamPage.enterVotingOwnership().sendKeys(teamDetals.split(",")[14]);
+        yourTeamPage.enterFinancialOwnership().sendKeys(teamDetals.split(",")[15]);
         yourTeamPage.nextButton().click();
     }
 
+
+
+    public void enterAboutYouForAnotherTeamMember(String teamDetailsAnotherMember) {
+        waitForPageLoad();
+        yourTeamPage.keyIndividual().click();
+        waitForPageLoad();
+        new Select(getStartedPage.selectTitle()).selectByVisibleText(teamDetailsAnotherMember.split(",")[0]);
+        getStartedPage.firstnameTextfield().sendKeys(teamDetailsAnotherMember.split(",")[1]);
+        getStartedPage.lastnamenameTextfield().sendKeys(teamDetailsAnotherMember.split(",")[2]);
+        new Select(yourTeamPage.selectDateOfBirth()).selectByVisibleText(teamDetailsAnotherMember.split(",")[3]);
+        new Select(yourTeamPage.selectMonthOfBirth()).selectByVisibleText(teamDetailsAnotherMember.split(",")[4]);
+        new Select(yourTeamPage.selectYearOfBirth()).selectByVisibleText(teamDetailsAnotherMember.split(",")[5]);
+        yourTeamPage.enterEmailId().sendKeys(RandomGenerator.randomEmailAddress(6));
+        new Select(yourTeamPage.selectCountryCode()).selectByVisibleText(teamDetailsAnotherMember.split(",")[6]);
+        yourTeamPage.enterMobileNumber().sendKeys(RandomGenerator.randomInteger(10));
+        //Enter Additional Information
+        if ((teamDetailsAnotherMember.split(",")[7]).equalsIgnoreCase("Male"))
+            yourTeamPage.radioGenderMale().click();
+        else
+            yourTeamPage.radioGenderFeMale().click();
+        new Select(yourTeamPage.selectCountryOfBirth()).selectByVisibleText(teamDetailsAnotherMember.split(",")[8]);
+        yourTeamPage.enterBirthTown().sendKeys((teamDetailsAnotherMember.split(",")[9]));
+
+        //for radio button of NATWEST account
+        if ((teamDetailsAnotherMember.split(",")[10]).equalsIgnoreCase("personalaccountYes"))
+            yourTeamPage.radioHoldNatwestAccYes().click();
+        else
+            yourTeamPage.radioHoldNatwestAccNo().click();
+        new Select(yourTeamPage.selectMonthOfStartingWork()).selectByVisibleText(teamDetailsAnotherMember.split(",")[11]);
+        new Select(yourTeamPage.selectYearOfStartingWork()).selectByVisibleText(teamDetailsAnotherMember.split(",")[12]);
+        //Are you registered to pay tax outside of the UK?
+        if ((teamDetailsAnotherMember.split(",")[13]).equalsIgnoreCase("PayTaxOutUKYes"))
+            yourTeamPage.radioRegisteredToPayTaxOutUKYes().click();
+        else
+            yourTeamPage.radioRegisteredToPayTaxOutUKNo().click();
+        //nationality
+        new Select(yourTeamPage.selectNationality()).selectByVisibleText((teamDetailsAnotherMember.split(",")[14]));
+        //building number
+        yourTeamPage.enterBuildingNumber().sendKeys(teamDetailsAnotherMember.split(",")[15]);
+        yourTeamPage.enterPostCode().sendKeys(teamDetailsAnotherMember.split(",")[16]);
+        yourTeamPage.homeAddressSeachButton().click();
+        new Select(yourTeamPage.selectMonthMovingIntoAddress()).selectByVisibleText("July");
+        new Select(yourTeamPage.selectYearMovingIntoAddress()).selectByVisibleText("2014");
+        yourTeamPage.enterVotingOwnership().sendKeys(teamDetailsAnotherMember.split(",")[17]);
+        yourTeamPage.enterFinancialOwnership().sendKeys(teamDetailsAnotherMember.split(",")[18]);
+        yourTeamPage.nextButton().click();
+        new Select(yourTeamPage.keyPointOfContact()).selectByIndex(1);
+        yourTeamPage.nextButton().click();
+    }
     //Manage Account Page
 
 
@@ -209,6 +275,52 @@ public class toolboxUtil extends AbstractPage {
         manageAccountPage.nextButton().click();
 
         enterAdditionalProducts(manageAccounts.split(",")[5]);
+    }
+
+    public void manageaccountsForPartnership(String manageAccounts) {
+
+        waitForPageLoad();
+        waitForMoreTime();
+        String SignatoryLimits=manageAccounts.split(",")[6];
+        new Select(manageAccountPage.signatoryOptions()).selectByVisibleText(SignatoryLimits);
+
+        if(SignatoryLimits.equalsIgnoreCase("Other")){
+
+            manageAccountPage.txtotherSigningRules().sendKeys("test");
+        }
+
+        if (manageAccounts.split(",")[7].contains("No")) {
+            manageAccountPage.radiolimitOnMoneyNo().click();
+
+        }
+        else {
+            manageAccountPage.radiolimitOnMoneyYes().click();
+            manageAccountPage.txtSignatoryGroupLimit().clear();
+            manageAccountPage.txtSignatoryGroupLimit().sendKeys("400");
+            if(manageAccounts.split(",")[8].contains("Yes")){
+                manageAccountPage.radioSignatoryGroupsYes().click();
+                manageAccountPage.txtCreateGroupName().sendKeys("group1");
+            }
+            else
+            {
+                manageAccountPage.radioSignatoryGroupsNo();
+            }
+
+            manageAccountPage.txtotherSigningRules().sendKeys("test");
+        }
+
+        if (manageAccounts.split(",")[9].contains("yes")) {
+            manageAccountPage.radiofurtherInformationYes().click();
+
+        }
+        else {
+            manageAccountPage.radiofurtherInformationNo().click();
+        }
+
+
+        manageAccountPage.nextButton().click();
+        manageaccounts( manageAccounts);
+
     }
 
     public void enterAdditionalProducts(String addtionalProducts) {

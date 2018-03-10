@@ -94,13 +94,29 @@ public class YourTeamPage extends AbstractPage {
     }
 
 
+    public WebElement enterVotingOwnership() {
+        return waitAndFindElement(By.id("voting-ownership"));
+    }
+
+    public WebElement enterFinancialOwnership() {
+
+        return waitAndFindElement(By.id("financial-ownership"));
+    }
+
+    public WebElement keyIndividual() {
+
+        return waitAndFindElement(By.xpath("//span[contains(text(),'key')]"));
+    }
+    public WebElement keyPointOfContact() {
+
+        return waitAndFindElement(By.id("business-email"));
+    }
+
     public WebElement selectMonthMovingIntoAddress() {
         return waitAndFindElement(By.id("date-of-entry-month"));
     }
-
     public WebElement selectYearMovingIntoAddress() {
-        return waitAndFindElement(By.id("date-of-entry-year"));
-    }
+        return waitAndFindElement(By.id("date-of-entry-year"));}
 
     public WebElement nextButton() {
         return waitAndFindElement(By.id("submit"));
