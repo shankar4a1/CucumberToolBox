@@ -38,10 +38,13 @@ public class toolboxUtil extends AbstractPage {
         loginPage.emailTextFiled().sendKeys(credencial.split(",")[0]);
         loginPage.passwordTextFiled().sendKeys(credencial.split(",")[1]);
         loginPage.loginButton().click();
+
     }
 
     public void startNewApplication(String personalDetails, String organizationDetail, String businessDetails, String businessfinancials, String teamDetals, String manageAccounts) {
         waitForPageLoad();
+        waitForPageLoad();
+        waitForMoreTime();
         waitForMoreTime();
         startNewApplication.startnewapplicationButton().click();
         startNewApplication.agreementCheckbox().click();
@@ -51,7 +54,21 @@ public class toolboxUtil extends AbstractPage {
         businessfinancials(businessfinancials);
         enterAboutYou(personalDetails, teamDetals);
         manageaccounts(manageAccounts);
+    }
 
+    public void startNewApplicationnew(String personalDetails, String organizationDetail, String organisationContactDetails, String businessOrganisationFinancials,String businessOrganisationPayments,String yourOrganisationAccount,String teamDetals, String manageAccounts) {
+        waitForPageLoad();
+        waitForMoreTime();
+        startNewApplication.startnewapplicationButton().click();
+        startNewApplication.agreementCheckbox().click();
+        startNewApplication.letStartButton().click();
+        getStartednew(personalDetails, organizationDetail);
+        getOrganisationContactDetails(organisationContactDetails);
+        getbusinessfinancialsNew(businessOrganisationFinancials);
+        getbusinessOrganisationPayments(businessOrganisationPayments);
+        getYourOrganisationAccount(yourOrganisationAccount);
+        enterAboutYou(personalDetails, teamDetals);
+        manageaccounts(manageAccounts);
     }
 
     public void getStarted(String personalDetails, String organizationDetail) {
@@ -69,6 +86,62 @@ public class toolboxUtil extends AbstractPage {
         new Select(getStartedPage.businessTypeSelect()).selectByVisibleText(organizationDetail.split(",")[1]);
         getStartedPage.nextButton().click();
 
+    }
+
+    public void getStartednew(String personalDetails, String organizationDetail) {
+
+        waitForPageLoad();
+        waitForMoreTime();
+        waitForMoreTime();
+        waitForMoreTime();
+        waitForMoreTime();
+
+        new Select(getStartedPage.selectTitle()).selectByVisibleText(personalDetails.split(",")[0]);
+        getStartedPage.firstnameTextfield().sendKeys(personalDetails.split(",")[1]);
+        getStartedPage.lastnamenameTextfield().sendKeys(personalDetails.split(",")[2]);
+        getStartedPage.ukbasedRadioYes().click();
+        new Select(getStartedPage.businessTypeSelect()).selectByVisibleText(organizationDetail.split(",")[0]);
+        if ((organizationDetail.split(",")[1]).equals("Yes ")) {
+            getStartedPage.areYouCharityRadioYes().click();
+            if ((organizationDetail.split(",")[1]).equals("Yes")) {
+                getStartedPage.areYouCharityRegisteredRadioYes().click();
+                getStartedPage.yourCharityRegisteredNumberField().sendKeys(organizationDetail.split(",")[3]);
+            } else if ((organizationDetail.split(",")[2]).equals("No")) {
+                getStartedPage.areYouCharityRegisteredRadioNo().click();
+                getStartedPage.nextButton().click();
+            }
+        }
+        else if((organizationDetail.split(",")[1]).equals("No"))
+            {
+            getStartedPage.areYouCharityRadioNo().click();
+        }
+        getStartedPage.nextButton().click();
+
+    }
+
+    public void getOrganisationContactDetails(String organisationContactDetails) {
+        waitForPageLoad();
+        waitForMoreTime();
+        waitForMoreTime();
+        waitForMoreTime();
+        getStartedPage.yourOrganisationCalledField().sendKeys(organisationContactDetails.split(",")[0]);
+        if ((organisationContactDetails.split(",")[1]).equals("Yes")) {
+            getStartedPage.yourOrganisationHaveAnyOtherTradingNamesOrAliasesYes().click();
+            getStartedPage.otherNamesDoesYourOrganisationUseField().sendKeys(organisationContactDetails.split(",")[3]);
+        } else  {
+            getStartedPage.yourOrganisationHaveAnyOtherTradingNamesOrAliasesNo().click();
+        }getStartedPage.tradingBuildingNameandNumber().sendKeys(organisationContactDetails.split(",")[4]);
+        getStartedPage.tradingPostcode().sendKeys(organisationContactDetails.split(",")[5]);
+        getStartedPage.findAdrressClick().click();
+        if ((organisationContactDetails.split(",")[2]).equals("No")) {
+            getStartedPage.radioCorrespondenceAddressNo().click();
+            getStartedPage.enterBuildingNumberForCorrespondenceAddressField().sendKeys(organisationContactDetails.split(",")[4]);
+            getStartedPage.enterPostCodeForCorrespondenceAddressField().sendKeys(organisationContactDetails.split(",")[5]);
+            getStartedPage.findCorrespondenceAdrressClick().click();
+        } else if ((organisationContactDetails.split(",")[1]).equals("Yes")) {
+            getStartedPage.radioCorrespondenceAddressYes().click();
+        }
+        getStartedPage.nextButton().click();
     }
 
     public void businessContact(String businessDetails) {
@@ -138,8 +211,177 @@ public class toolboxUtil extends AbstractPage {
         yourBusinessPage.nextButton().click();
     }
 
+    public void getbusinessfinancialsNew(String businessOrganisationFinancials) {
+        int businessValue = Integer.parseInt(businessOrganisationFinancials.split(",")[0]);
+        setBusinessValue(businessValue);
+        new Select(yourBusinessPage.selectStartTradingMonth()).selectByVisibleText(businessOrganisationFinancials.split(",")[1]);
+        new Select(yourBusinessPage.selectStartTradingYear()).selectByVisibleText(businessOrganisationFinancials.split(",")[2]);
+        yourBusinessPage.totalNumberOfEmployees().sendKeys(businessOrganisationFinancials.split(",")[3]);
+        yourBusinessPage.describeHowYouDoAndOperate().sendKeys(RandomGenerator.randomString(120));
+        yourBusinessPage.beneficiariesOfYourOrganisation().sendKeys(businessOrganisationFinancials.split(",")[4]);
+        yourBusinessPage.businessWebsiteUrl().sendKeys(businessOrganisationFinancials.split(",")[5]);
+        if ((businessOrganisationFinancials.split(",")[6]).equals("Yes")) {
+            yourBusinessPage.radioBusinessFacingLegalProceedings().click();
+            yourBusinessPage.detailsOfTheArrearsOrLegalProceedings().sendKeys(businessOrganisationFinancials.split(",")[8]);
+        } else {
+            yourBusinessPage.radioBusinessNotFacingLegalProceedings().click();
+        }
+        yourBusinessPage.nextButton().click();
+        waitForPageLoad();
+        waitForMoreTime();
+    }
+
+    public void getbusinessOrganisationPayments(String businessOrganisationPayments) {
+        waitForPageLoad();
+        waitForPageLoad();
+        waitForPageLoad();
+        waitForPageLoad();
+        waitForMoreTime();
+        waitForMoreTime();
+        waitForMoreTime();
+        //(businessOrganisationPayments.split(",")[0]).equals("Transfers from UK banks")
+            yourBusinessPage.checkBoxTransfersFromUKBanks().click();
+            yourBusinessPage.checkBoxCheques().click();
+            yourBusinessPage.checkBoxCardPayments().click();
+            yourBusinessPage.checkBoxDirectDebitAndStandingOrders().click();
+            yourBusinessPage.checkBoxCashPayout().click();
+            yourBusinessPage.enterPercentageOfAllTransactionsGoingOutOfYourNewAccountWillBeCashPaymentsField().sendKeys(businessOrganisationPayments.split(",")[0]);
+            yourBusinessPage.checkBoxCashPaidIn().click();
+            new Select (yourBusinessPage.selectPercentageOfCash()).selectByIndex(7);
+            yourBusinessPage.incomeStreamForBusiness().sendKeys(RandomGenerator.randomString(120));
+            new Select (yourBusinessPage.selectDailyPecentageOfCashPayments()).selectByIndex(3);
+            new Select (yourBusinessPage.selectHowOftenYouDepositCashIntoThisAccount()).selectByIndex(6);
+
+        if ((businessOrganisationPayments.split(",")[4]).equals("Yes")) {
+            yourBusinessPage.radioBusinessIsSeasonal().click();
+            yourBusinessPage.whenOrganisationIsBusyOrQuietTimesOfTheYearField().sendKeys(businessOrganisationPayments.split(",")[6]);
+        } else {
+            yourBusinessPage.radioBusinessIsNotSeasonal().click();
+        }
+
+        if ((businessOrganisationPayments.split(",")[4]).equals("Yes")) {
+            yourBusinessPage.radioBusinessSendsOrReceiveInternationalPayments().click();
+            yourBusinessPage.checkboxSendPaymentOverseas().click();
+            new Select(yourBusinessPage.selectLocationToSendPaymentsFromOverseas()).selectByVisibleText(businessOrganisationPayments.split(",")[7]);
+            yourBusinessPage.enterPercentageOfTotalPaymentsSendFromthisField().sendKeys(businessOrganisationPayments.split(",")[8]);
+            new Select(yourBusinessPage.selectNatureAndPurposeOfPaymentsSend()).selectByVisibleText(businessOrganisationPayments.split(",")[9]);
+            //yourBusinessPage.enterTheNatureAndPurposeofYourOtherPaymentsMadeForPaymentsSendFromOverseasField().sendKeys(businessOrganisationPayments.split(",")[10]);
+            yourBusinessPage.checkboxRecievePaymentFromOverseas().click();
+            new Select(yourBusinessPage.selectLocationToRecievePaymentsFromOverseas()).selectByVisibleText(businessOrganisationPayments.split(",")[11]);
+            yourBusinessPage.enterPercentageOfTotalPaymentsRecievedFromthisField().sendKeys(businessOrganisationPayments.split(",")[12]);
+            //yourBusinessPage.enterPercentageOfTotalPaymentsRecievedFromthisField().sendKeys("55");
+            new Select (yourBusinessPage.selectNatureAndPurposeOfPaymentsRecieved()).selectByVisibleText(businessOrganisationPayments.split(",")[13]);
+            //yourBusinessPage.enterTheNatureAndPurposeofYourOtherPaymentsMadeForPaymentsRecieveFromOverseasField().sendKeys(businessOrganisationPayments.split(",")[14]);
+            yourBusinessPage.checkboxOnwersBasedOutOfUK().click();
+            new Select(yourBusinessPage.selectLocationForOnwersBasedOutOfUK()).selectByVisibleText(businessOrganisationPayments.split(",")[15]);
+            new Select(yourBusinessPage.selectCountryBusinessOwnsAssets()).selectByVisibleText(businessOrganisationPayments.split(",")[16]);
+
+        } else {
+            yourBusinessPage.radioBusinessDoesNotSendOrReceiveInternationalPayments().click();
+            new Select(yourBusinessPage.selectCountryBusinessOwnsAssets()).selectByVisibleText(businessOrganisationPayments.split(",")[17]);
+        }
+
+        if ((businessOrganisationPayments.split(",")[4]).equals("Yes")) {
+            yourBusinessPage.radioBusinessIsRegisteredToPayTaxOutsideUK().click();
+            //new Select(yourBusinessPage.selectOtherCountryResidentToPayTax()).selectByVisibleText(businessOrganisationPayments.split(",")[18]);
+            new Select(yourBusinessPage.selectOtherCountryResidentToPayTax()).selectByIndex(6);
+            //yourBusinessPage.enterYourTaxIdentificationNumber().sendKeys(businessOrganisationPayments.split(",")[19]);
+            yourBusinessPage.enterYourTaxIdentificationNumber().sendKeys("12345");
+            yourBusinessPage.nextButton().click();
+        }
+        else {
+            yourBusinessPage.radioBusinessIsNotRegisteredToPayTaxOutsideUK().click();
+            yourBusinessPage.nextButton().click();
+        }
+
+    }
+
+
+    public void getYourOrganisationAccount( String yourOrganisationAccount) {
+        waitForPageLoad();
+        waitForMoreTime();
+        waitForMoreTime();
+        /*     Existing Banking Relationships starts here*/
+        if ((yourOrganisationAccount.split(",")[0]).equals("Yes")) {
+            yourBusinessPage.radioHasExistingRelationshipWithNatwest().click();
+            yourBusinessPage.enterYourMainOrganisationCurrentAccountDetails().sendKeys(yourOrganisationAccount.split(",")[2]);
+            yourBusinessPage.enterSortCodePart1().sendKeys(yourOrganisationAccount.split(",")[3]);
+            yourBusinessPage.enterSortCodePart2().sendKeys(yourOrganisationAccount.split(",")[4]);
+            yourBusinessPage.enterSortCodePart3().sendKeys(yourOrganisationAccount.split(",")[5]);
+        } else {
+            yourBusinessPage.radioHasNoExistingRelationshipWithNatwest().click();
+        }
+
+        /* Switch Business Account from other Bank in UK Start here */
+
+        if ((yourOrganisationAccount.split(",")[0]).equals("Yes")) {
+            yourBusinessPage.radioSwitchYourBusinessAccountToUsYes().click();
+            new Select(yourBusinessPage.selectFinancialInstitutionAreYouSwitchingFrom()).selectByVisibleText(yourOrganisationAccount.split(",")[6]);
+            new Select(yourBusinessPage.selectSwitchingBank()).selectByVisibleText(yourOrganisationAccount.split(",")[7]);
+            yourBusinessPage.enterTotalAmountOfBorrowingYouHaveInCurrentBank().sendKeys(yourOrganisationAccount.split(",")[8]);
+            if ((yourOrganisationAccount.split(",")[1]).equals("No")) {
+                yourBusinessPage.radioBorrowingAgainstAnySecurityWithYourCurrentBankNo().click();
+                yourBusinessPage.radioYouLikeUsToDoTheSwitchingForYouYes().click();
+                if ((yourOrganisationAccount.split(",")[9]).equals("Full Switch Service")) {
+                    yourBusinessPage.radioFullSwitchService().click();
+                }
+                else {
+                    yourBusinessPage.radioPartialSwitchService().click();
+                }
+            }
+            else{
+                yourBusinessPage.radioBorrowingAgainstAnySecurityWithYourCurrentBankYes().click();
+                yourBusinessPage.radioYouLikeUsToDoTheSwitchingForYouNo().click();
+            }
+        }
+        else
+            {
+            yourBusinessPage.radioSwitchYourBusinessAccountToUsNo().click();
+        }
+        if ((yourOrganisationAccount.split(",")[0]).equals("Yes")) {
+            yourBusinessPage.radioIsMoneyComingInYes().click();
+            yourBusinessPage.enterWhoWillMakePaymentsToYourAccountField().sendKeys(yourOrganisationAccount.split(",")[10]);
+            yourBusinessPage.cashCheckBox().click();
+            yourBusinessPage.enterTotalAmountOfCashThatWillBePaidInField().sendKeys(yourOrganisationAccount.split(",")[11]);
+            yourBusinessPage.transferFromUKBankCheckBox().click();
+            yourBusinessPage.enterAmountTransferedUKField().sendKeys(yourOrganisationAccount.split(",")[12]);
+            yourBusinessPage.transferFromNonUKBankCheckBox().click();
+            yourBusinessPage.enterAmountTransferedNonUkField().sendKeys(yourOrganisationAccount.split(",")[13]);
+            yourBusinessPage.enterNameOfTheBankNameTheTransferMadeFromField().sendKeys(yourOrganisationAccount.split(",")[14]);
+            new Select(yourBusinessPage.selectCountryBankBasedIn()).selectByVisibleText(yourOrganisationAccount.split(",")[15]);
+            yourBusinessPage.enterNameOfThePersonMakingTransferField().sendKeys(yourOrganisationAccount.split(",")[16]);
+            if((yourOrganisationAccount.split(",")[0]).equals("Yes")){
+                yourBusinessPage.radioPersonAssociatedWithYourAccountYes().click();
+                yourBusinessPage.enterReasonforNonUKBankTransferField().sendKeys(RandomGenerator.randomString(120));
+                new Select(yourBusinessPage.selectFromWhereWillThisCashComeFrom()).selectByVisibleText(yourOrganisationAccount.split(",")[17]);
+                yourBusinessPage.enterPleaseProvideMoreDetailsField().sendKeys(RandomGenerator.randomString(120));
+                new Select(yourBusinessPage.selectBankOrBuildingSocietyWillTransferMadeFrom()).selectByVisibleText(yourOrganisationAccount.split(",")[18]);
+                yourBusinessPage.enternameAccountOrAccountHolderWillBeSendingMoneyField().sendKeys(yourOrganisationAccount.split(",")[19]);
+                yourBusinessPage.nextButton().click();
+            }
+
+            else{
+                yourBusinessPage.radioPersonAssociatedWithYourAccountNo().click();
+                yourBusinessPage.enterRelationshipBetweenPersonAndOrganisationField().sendKeys(RandomGenerator.randomString(120));
+                yourBusinessPage.enterReasonforNonUKBankTransferField().sendKeys(RandomGenerator.randomString(120));
+                new Select(yourBusinessPage.selectFromWhereWillThisCashComeFrom()).selectByVisibleText(yourOrganisationAccount.split(",")[17]);
+                yourBusinessPage.enterPleaseProvideMoreDetailsField().sendKeys(RandomGenerator.randomString(120));
+                new Select(yourBusinessPage.selectBankOrBuildingSocietyWillTransferMadeFrom()).selectByVisibleText(yourOrganisationAccount.split(",")[18]);
+                yourBusinessPage.enternameAccountOrAccountHolderWillBeSendingMoneyField().sendKeys(yourOrganisationAccount.split(",")[19]);
+                yourBusinessPage.nextButton().click();
+            }
+
+        } else {
+            yourBusinessPage.radioIsMoneyComingInNo().click();
+        }
+    }
+
+
+
 
     public void enterAboutYou(String personalDetails, String teamDetals) {
+        waitForPageLoad();
+        waitForPageLoad();
         waitForPageLoad();
 
         new Select(yourTeamPage.selectDateOfBirth()).selectByVisibleText(teamDetals.split(",")[0]);

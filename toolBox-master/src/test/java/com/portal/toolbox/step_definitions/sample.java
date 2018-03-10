@@ -16,7 +16,7 @@ public class sample extends BaseStepDef {
     private toolboxUtil toolboxUtil = new toolboxUtil();
 
     @Given("^I launch '(.+)' Business Onboarding & Account Opening application$")
-    public void iLaunchNatewestBusinessOnboardingAccountOpeningApplication(String brandName) throws Throwable {
+    public void iLaunchNatewestBusinessOnboardingAccountOpeningApplication(String brandName) {
         switch (brandName) {
             case "RBS":
                 getDriver().get(System.getProperty("ENV").replace("natwest.com", "rbs.co.uk"));
@@ -34,17 +34,21 @@ public class sample extends BaseStepDef {
     }
 
     @When("^I login with '(.+)' to the application and navigate to homepage$")
-    public void iLoginWithCredencialsToTheApplicationAndNavigateToHomepage(String credencials) throws Throwable {
+    public void iLoginWithCredencialsToTheApplicationAndNavigateToHomepage(String credencials) {
         toolboxUtil.login(credencials);
     }
 
-    @And("^I start New application and enter '(.+)','(.+)','(.+)','(.+)','(.+)'and'(.+)'information$")
+    /*@And("^I start New application and enter '(.+)','(.+)','(.+)','(.+)','(.+)'and'(.+)'information$")
     public void iStartNewApplicationAndEnterPersonalDetailsOrganizationDetailBusinessDetailsBusinessFinancialsAndTeamDetalsInformations(String personalDetails, String organizationDetail, String businessDetails, String businessfinancials, String teamDetals, String manageAccounts) throws Throwable {
         toolboxUtil.startNewApplication(personalDetails, organizationDetail, businessDetails, businessfinancials, teamDetals, manageAccounts);
-    }
+    }*/
 
+    @When("^I start New application and enter '(.+)','(.+)','(.+)','(.+)','(.+)','(.+)','(.+)'and'(.+)'information$")
+    public void iStartNewApplicationAndEnterPersonalDetailsOrganizationDetailOrganisationContactDetailsBusinessOrganisationFinancialsYourOrganisationAccountBusinessOrganisationPaymentsandTeamDetalsInformations(String personalDetails, String organizationDetail, String organisationContactDetails, String businessOrganisationFinancials,String businessOrganisationPayments,String yourOrganisationAccount,String teamDetals, String manageAccounts) {
+        toolboxUtil.startNewApplicationnew(personalDetails,organizationDetail,organisationContactDetails,businessOrganisationFinancials,businessOrganisationPayments,yourOrganisationAccount,teamDetals,manageAccounts);
+    }
     @Then("^I should get navigate reviewapplication page$")
-    public void iShouldGetNavigateManageaccountPage() throws Throwable {
+    public void iShouldGetNavigateManageaccountPage() {
         System.out.println("test completed");
     }
 }

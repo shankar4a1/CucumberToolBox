@@ -1,6 +1,7 @@
 package com.portal.toolbox.pages;
 
 import com.portal.toolbox.framework.AbstractPage;
+import org.omg.CORBA.PUBLIC_MEMBER;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 
@@ -40,5 +41,76 @@ public class GetStartedPage extends AbstractPage {
     public WebElement nextButton() {
         return waitAndFindElement(By.id("submit"));
     }
+
+    public WebElement areYouCharityRadioYes(){return waitForElementPresent(By.id("are-you-a-charity-option-0")); }
+
+    public WebElement areYouCharityRadioNo(){return waitForElementPresent(By.id("are-you-a-charity-option-1")); }
+
+    public WebElement areYouCharityRegisteredRadioYes(){return waitForElementPresent(By.id("is-charity-registered-option-0")); }
+
+    public WebElement areYouCharityRegisteredRadioNo(){return waitForElementPresent(By.id("is-charity-registered-option-1")); }
+
+    public WebElement yourCharityRegisteredNumberField(){return waitForElementPresent(By.id("charity-reg-number")); }
+
+    public WebElement yourCompanyRegisteredNumberField(){return waitForElementPresent(By.id("registrationNumber")); }
+
+    public WebElement typeOfTrustYourSelect() {
+        return waitForElementPresent(By.id("trust-type"));
+    }
+
+    public WebElement schemeProvideRetirementBenefitsForEmployeesYes(){ return waitForElementPresent(By.id("pension-scheme-option-0"));}
+
+    public WebElement schemeProvideRetirementBenefitsForEmployeesNo(){ return waitForElementPresent(By.id("pension-scheme-option-1"));}
+
+    public WebElement yourPensionSchemeRegisteredWithHMRCYes(){ return waitForElementPresent(By.id("is-pension-scheme-reg-option-0"));}
+
+    public WebElement yourPensionSchemeRegisteredWithHMRCNo(){ return waitForElementPresent(By.id("is-pension-scheme-reg-option-1"));}
+
+    public WebElement yourOrganisationCalledField(){ return waitForElementPresent(By.id("business-name"));}
+
+    public WebElement yourOrganisationHaveAnyOtherTradingNamesOrAliasesYes(){ return waitForElementPresent(By.id("has-other-trading-name-option-0"));}
+
+    public WebElement yourOrganisationHaveAnyOtherTradingNamesOrAliasesNo(){ return waitForElementPresent(By.id("has-other-trading-name-option-1"));}
+
+    public WebElement otherNamesDoesYourOrganisationUseField(){return waitForElementPresent(By.id("other-trading-name"));}
+
+    public WebElement tradingBuildingNameandNumber(){return waitForElementPresent(By.id("registered-address-finder-address"));}
+
+    public WebElement tradingPostcode(){return waitForElementPresent(By.id("registered-address-finder-postcode"));}
+
+    public WebElement findAdrressClick(){return waitForElementPresent(By.id("registered-address-search"));}
+
+    public WebElement radioCorrespondenceAddressYes(){return waitForElementPresent(By.id("has-same-correspondence-address-option-0"));}
+
+    public WebElement radioCorrespondenceAddressNo(){return waitForElementPresent(By.id("has-same-correspondence-address-option-1"));}
+
+    public WebElement enterBuildingNumberForCorrespondenceAddressField(){
+        return waitForElementPresent(By.id("correspondence-address-finder-address"));
+    }
+
+    public WebElement enterPostCodeForCorrespondenceAddressField(){
+        return waitForElementPresent(By.id("correspondence-address-finder-postcode"));
+    }
+
+    public WebElement findCorrespondenceAdrressClick(){
+        return waitForElementPresent(By.id("correspondence-address-search"));
+    }
+
+    public WebElement detailsOfTheArrearsOrLegalProceedingsField(){return waitForElementPresent(By.id("field-legalProceedingsDescription"));}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 }
